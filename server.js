@@ -6,6 +6,9 @@ const path = require('path');
 const app = express();
 app.use(express.json());
 
+// Health-check route (prevents Fly.io restart spam)
+app.get('/', (req, res) => res.send('OK'));
+
 const DB_PATH = path.join(__dirname, 'licenses.json');
 const PURCHASE_DB = path.join(__dirname, 'purchases.json');
 const SCRIPT_PATH = path.join(__dirname, 'taskflux.user.js');
@@ -25,7 +28,7 @@ function hash(fp) {
   return crypto.createHash('sha256').update(fp).digest('hex');
 }
 
-// License activation
+// ----- License endpoints (unchanged) -----
 app.post('/activate', (req, res) => {
   const { license, fingerprint } = req.body;
   if (!license || !fingerprint) return res.json({ status: 'invalid' });
@@ -44,7 +47,6 @@ app.post('/activate', (req, res) => {
   res.json({ status: 'ok', token });
 });
 
-// License validation
 app.post('/validate', (req, res) => {
   const { license, token } = req.body;
   if (!license || !token) return res.json({ status: 'invalid' });
@@ -55,49 +57,37 @@ app.post('/validate', (req, res) => {
   res.json({ status: 'valid' });
 });
 
-// Generate one-time purchase code
 app.get('/new-code', (req, res) => {
-  const purchases = readJSON(PURCHASE_DB);
-  const code = 'PU-' + crypto.randomBytes(8).toString('hex').toUpperCase();
-  purchases[code] = { used: false, created: Date.now() };
-  writeJSON(PURCHASE_DB, purchases);
-  res.json({ code, link: `${req.protocol}://${req.get('host')}/buy?code=${code}` });
+  try {
+    const purchases = readJSON(PURCHASE_DB);
+    const code = 'PU-' + crypto.randomBytes(8).toString('hex').toUpperCase();
+    purchases[code] = { used: false, created: Date.now() };
+    writeJSON(PURCHASE_DB, purchases);
+    res.json({ code, link: `${req.protocol}://${req.get('host')}/buy?code=${code}` });
+  } catch (err) {
+    console.error('Error generating code:', err);
+    res.status(500).send('Server error.');
+  }
 });
 
-// Buy endpoint – serves the customized script
 app.get('/buy', (req, res) => {
   const { code } = req.query;
-  if (!code) {
-    res.status(400).send('Missing purchase code. Use /buy?code=PU-XXXX');
-    return;
-  }
-
+  if (!code) return res.status(400).send('Missing purchase code.');
   const purchases = readJSON(PURCHASE_DB);
   const purchase = purchases[code];
-  if (!purchase || purchase.used) {
-    res.status(403).send('Invalid or already used purchase code.');
-    return;
-  }
-
+  if (!purchase || purchase.used) return res.status(403).send('Invalid or already used purchase code.');
   const licenses = readJSON(DB_PATH);
   const licenseKey = 'TF-' + crypto.randomUUID().slice(0, 12).toUpperCase();
   licenses[licenseKey] = { revoked: false, created: Date.now() };
   writeJSON(DB_PATH, licenses);
-
   purchase.used = true;
   writeJSON(PURCHASE_DB, purchases);
 
   try {
     let template = fs.readFileSync(SCRIPT_PATH, 'utf8');
-
-    // Inject license key
     template = template.replace('%%LICENSE%%', licenseKey);
-
-    // Inject the real server URL (the one the buyer is accessing)
-    const serverUrl = `${req.protocol}://${req.get('host')}`;
-    template = template.replace('%%SERVER_URL%%', serverUrl);
-
-    // Compute integrity hash of the license module
+    template = template.replace('%%SERVER_URL%%', `${req.protocol}://${req.get('host')}`);
+    // Integrity hash (optional – keep if you want tamper detection)
     const markerStart = '// INTEGRITY_START';
     const markerEnd = '// INTEGRITY_END';
     const startIdx = template.indexOf(markerStart);
@@ -107,13 +97,25 @@ app.get('/buy', (req, res) => {
       const integrityHash = crypto.createHash('sha256').update(moduleSource).digest('hex');
       template = template.replace('%%INTEGRITY%%', integrityHash);
     }
-
     res.setHeader('Content-Type', 'application/javascript');
     res.send(template);
   } catch (err) {
-    res.status(500).send('Server error: could not read script template.');
+    console.error('Error serving script:', err);
+    res.status(500).send('Server error.');
   }
+});
+
+// Catch-all error handler
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(500).send('Internal server error');
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => console.log(`License server running on port ${PORT}`));
+
+// Log any uncaught exceptions
+process.on('uncaughtException', (err) => {
+  console.error('UNCAUGHT EXCEPTION:', err);
+  process.exit(1);
+});
