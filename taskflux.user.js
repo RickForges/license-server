@@ -1,1 +1,907 @@
-(function(_0x5a7d){'use strict';const _0x38e2=async()=>{const _0x1f3b=_0x5a7d.SERVER_URL,_0x4d9e=_0x5a7d.EMBEDDED_LICENSE;if(_0x4d9e&&_0x4d9e!=='%%LICENSE%%'){GM_setValue('lic_key',_0x4d9e);}let _0x2c8b=GM_getValue('lic_key',''),_0x3e9a=GM_getValue('lic_token','');if(_0x2c8b&&_0x3e9a){try{const _0x1b2=await new Promise((_0x5f2,_0x6c8)=>{GM_xmlhttpRequest({method:'POST',url:_0x1f3b+'/validate',headers:{'Content-Type':'application/json'},data:JSON.stringify({license:_0x2c8b,token:_0x3e9a}),onload:_0x7d=>{try{_0x5f2(JSON.parse(_0x7d.responseText));}catch{_0x6c8('Bad JSON');}},onerror:()=>_0x6c8('Network'),ontimeout:()=>_0x6c8('Timeout')});});if(_0x1b2.status==='valid')return true;}catch{}const _0x7a3=GM_getValue('lic_last_valid',0);if(Date.now()-_0x7a3<864e5)return true;}if(!_0x2c8b)return false;try{const _0x5b1=[navigator.userAgent,screen.width+'x'+screen.height,new Date().getTimezoneOffset(),navigator.hardwareConcurrency||'na',navigator.deviceMemory||'na'].join('###');const _0x6d4=await new Promise((_0x8e7,_0x9f3)=>{GM_xmlhttpRequest({method:'POST',url:_0x1f3b+'/activate',headers:{'Content-Type':'application/json'},data:JSON.stringify({license:_0x2c8b,fingerprint:_0x5b1}),onload:_0xa3=>{try{_0x8e7(JSON.parse(_0xa3.responseText));}catch{_0x9f3('Bad JSON');}},onerror:()=>_0x9f3('Network'),ontimeout:()=>_0x9f3('Timeout')});});if(_0x6d4.status==='ok'){GM_setValue('lic_key',_0x2c8b);GM_setValue('lic_token',_0x6d4.token);GM_setValue('lic_last_valid',Date.now());return true;}else if(_0x6d4.status==='already_bound'){alert('This license is already used on another device.\nContact support.');return false;}else{GM_setValue('lic_key','');return false;}}catch{const _0xc3=GM_getValue('lic_last_valid',0);if(Date.now()-_0xc3<864e5)return true;return false;}};const _0x12d7=async()=>{const _0x4a2=_0x5a7d.EXPECTED_HASH;if(_0x4a2&&_0x4a2!=='%%INTEGRITY%%'){try{const _0x5e8=document.currentScript.textContent;const _0x6f9=_0x5e8.replace(/"%%INTEGRITY%%"/,'""');const _0x7b0=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(_0x6f9));const _0x8c1=Array.from(new Uint8Array(_0x7b0)).map(b=>b.toString(16).padStart(2,'0')).join('');if(_0x8c1!==_0x4a2){GM_setValue('lic_key','');GM_setValue('lic_token','');throw new Error('Integrity');}}catch{GM_setValue('lic_key','');GM_setValue('lic_token','');throw new Error('Integrity');}}const _0x9d4=await _0x38e2();if(!_0x9d4)return;const _0xae5={reloadDelayMs:3200,initialStartDelayMs:1200,storagePrefix:'tfbot.',maxPageWaitRetries:10,pageWaitIntervalMs:400,bbHistoryMax:10};const _0xbf6='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';const _0xc07=['aicompanions','aivideos','amazonsellercentral','asknyc','athleanx','badenwuerttemberg','boardgames','coinmarketcap','coldemail','companionsonar','contentcreators','cryptoscams','dropshipping','emailforsmallbusiness','generativeseostrategy','growmybusiness','gymowner','hiringpakistan','hoboken','lakers','linkbuilding','martialfetish','medspa','micro_saas','mounjarodeutschland','norway','onlinegambling','ouraring','passive_income','pestcontrol','proteomics','saassales','sgexams','sit_singapore','socialmediamarketing','southflorida','stlouis','sweatystartup','westpalmbeach'];const _0xd18=['30plusskincare','adhs','adulting','aipartners','askanaustralian','askbrits','askmen','askphoenix','askredditnsfw','asksingapore','asksouthafrica','askto','aussie','bayarea','beyondthebump','bigbudgetbrides','bogleheads','businessideas','businesstantrums','buycanadian','campinggear','catownerhacks','ceh','characterairunaways','chatgpt','claudeai','coloranalysis','cryptomarkets','cybersecurity','cybersecurity_help','devpt','digitalminimalism','dragonquest','driving','emailprivacy','expats','explainthejoke','femalefashionadvice','finanzen','firsttimehomebuyer','g2g_com','gamblingaddiction','gaming','generativeai','goldendoodles','hairtransplants','headshots','henryuk','herahaven','hiking','instagram','interesting','interestingasfuck','iosgaming','japanlife','karate','labrats','landlord','leadgeneration','legaladviceuk','life','lifeadvice','lifeprotips','linkedin','listentothis','localllama','longhair','longreads','makeup','makeupaddiction','masturbation','meme','memes','mentalhealth','mississauga','mommit','money','motouk','muradgussahokya','n8n','neweracaps','newparents','northcountry','northcounty','oculusquest','parenting','pregnant','prepping','privacy','productivity','productmanagement','recruitinghell','rheumatoid','sacramento','savannah','scams','seo','sidehustle','sideproject','skincareaddiction','smallbusinessuk','smma','socialmedia','software','softwarelabs','stablediffusion','startup','stocks','studytips','sysadmin','tax','techgore','technology','techsales','tempe','toddlers','topazlabs','transhumanism','travelhacks','trt','trueoffmychest','ukpolitics','unitedkingdom','vegas','vibecoding','virginiabeach','virtualreality','webscraping','wimbledon','womensfashion','zepbound','zerowaste'];const _0xe29={safe:`${_0xae5.storagePrefix}safeSubs`,ignored:`${_0xae5.storagePrefix}ignoredSubs`,stopped:`${_0xae5.storagePrefix}stopped`,lastClaimed:`${_0xae5.storagePrefix}lastClaimed`,bbQueue:`${_0xae5.storagePrefix}bbQueue`,bbInProgress:`${_0xae5.storagePrefix}bbInProgress`,filteringMode:`${_0xae5.storagePrefix}filteringMode`,bbCheckedSubs:`${_0xae5.storagePrefix}bbCheckedSubs`};const _0xf3a='tfbot_auto_mode';const _0x104b='tfbot_auto_queue';const _0x115c={running:false,mode:'overview',lastDetectedTask:null,pendingUnknown:[],lastKnownCount:0,currentTimer:null,ui:null,bbQueue:[],bbInProgress:false,filteringMode:false,bbCheckedSubs:[],popup:null};function _0x126d(_0x137e){return String(_0x137e||'').replace(/^r\//i,'').trim().toLowerCase();}function _0x148f(_0x1590){return String(_0x1590||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}function _0x16a1(_0x17b2,_0x18c3){try{const _0x19d4=GM_getValue(_0x17b2);return _0x19d4?new Set(JSON.parse(_0x19d4).map(_0x126d).filter(Boolean)):new Set(_0x18c3.map(_0x126d));}catch{return new Set(_0x18c3.map(_0x126d));}}function _0x1ae5(_0x1bf6,_0x1c07){GM_setValue(_0x1bf6,JSON.stringify([..._0x1c07].sort()));}function _0x1d18(_0x1e29,_0x1f3a=false){const _0x204b=GM_getValue(_0x1e29,null);return _0x204b!==null?_0x204b===true||_0x204b==='true':_0x1f3a;}function _0x215c(_0x226d,_0x237e){GM_setValue(_0x226d,_0x237e);}function _0x248f(_0x2590,_0x26a1=[]){try{const _0x27b2=GM_getValue(_0x2590,null);return _0x27b2?JSON.parse(_0x27b2):_0x26a1;}catch{return _0x26a1;}}function _0x28c3(_0x29d4,_0x2ae5){GM_setValue(_0x29d4,JSON.stringify(_0x2ae5));}let _0x2bf6=_0x16a1(_0xe29.safe,_0xc07);let _0x2c07=_0x16a1(_0xe29.ignored,_0xd18);_0x115c.bbCheckedSubs=_0x248f(_0xe29.bbCheckedSubs,[]);_0x115c.bbQueue=[];_0x28c3(_0xe29.bbQueue,[]);_0x115c.bbInProgress=false;_0x215c(_0xe29.bbInProgress,false);_0x115c.filteringMode=_0x1d18(_0xe29.filteringMode,false);const _0x2d18=()=>_0x1d18(_0xe29.stopped,true);function _0x2e29(){_0x1ae5(_0xe29.safe,_0x2bf6);_0x1ae5(_0xe29.ignored,_0x2c07);}function _0x2f3a(_0x304b){const _0x315c=_0x126d(_0x304b);if(!_0x315c)return false;if(_0x2c07.has(_0x315c))_0x2c07.delete(_0x315c);const _0x326d=!_0x2bf6.has(_0x315c);_0x2bf6.add(_0x315c);_0x2e29();if(_0x115c.ui)_0x437e();return _0x326d;}function _0x337e(_0x348f){const _0x3590=_0x126d(_0x348f);if(!_0x3590)return false;if(_0x2bf6.has(_0x3590))_0x2bf6.delete(_0x3590);const _0x36a1=!_0x2c07.has(_0x3590);_0x2c07.add(_0x3590);_0x2e29();if(_0x115c.ui)_0x437e();return _0x36a1;}function _0x37b2(){const _0x38c3=document.createElement('div');_0x38c3.id='tfbot-overlay';_0x38c3.style.cssText='position:fixed;top:10px;right:10px;z-index:2147483646;width:340px;max-width:92vw;background:#0b0f14;color:#d7ffd7;border:1px solid #2f4f2f;border-radius:14px;padding:10px;font-family:system-ui,sans-serif;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.35);max-height:85vh;overflow-y:auto';_0x38c3.innerHTML='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div style="font-weight:800;font-size:14px">TaskFlux Control</div><div id="tfbot-indicator" style="width:10px;height:10px;border-radius:50%;background:#666"></div></div><div style="margin-bottom:8px;line-height:1.4"><div>Status: <span id="tfbot-status">Stopped</span></div><div>State: <span id="tfbot-state">STOPPED</span></div><div>Safe: <span id="tfbot-safe-count">0</span> | Ignored: <span id="tfbot-ignore-count">0</span></div><div>Unknown: <span id="tfbot-unknown-count">0</span> | BB Checked: <span id="tfbot-bbchecked-count">0</span></div></div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"><button data-act="start" style="flex:1;background:#2f4f2f;">▶ Start</button><button data-act="stop" style="flex:1;background:#4f2f2f;">⏹ Stop</button><button data-act="toggle-filter" id="filter-toggle-btn" style="flex:1;">Filter: OFF</button></div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"><button data-act="add-subs" style="flex:1;">Add Subs</button><button data-act="remove-subs" style="flex:1;">Remove Subs</button><button data-act="bulk-import" style="flex:1;">Bulk Import</button></div><div id="sub-action-panel" style="display:none;margin-bottom:8px;border:1px solid #2f4f2f;border-radius:8px;padding:6px;background:#101820"><div id="sub-action-inner"></div></div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"><button data-act="view-safe" style="flex:1;">View Safe</button><button data-act="view-ignore" style="flex:1;">View Ignored</button></div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"><button data-act="clear-view" style="flex:1;">Overview</button><button data-act="hide" style="flex:1;background:#333;">Hide</button></div><div id="tfbot-summary" style="padding:8px;border:1px solid #2f4f2f;border-radius:10px;margin-bottom:8px;background:#101820;line-height:1.4"></div><div id="tfbot-content" style="max-height:280px;overflow:auto;border-top:1px solid #2f4f2f;padding-top:8px"></div>';const _0x39d4=document.createElement('style');_0x39d4.textContent='#tfbot-overlay button{background:#182533; color:#fff; border:1px solid #2f4f2f; border-radius:8px; padding:6px 8px; font-size:12px; cursor:pointer;}#tfbot-overlay button:active{transform:scale(.97)}#tfbot-overlay .task-card{border:1px solid #2f4f2f; border-radius:10px; padding:8px; margin-bottom:8px; background:#101820;}#tfbot-overlay .task-actions{display:flex; gap:4px; flex-wrap:wrap; margin-top:6px;}#tfbot-overlay .task-actions button{flex:1; min-width:60px;}#tfbot-overlay .list-item{padding:5px 0; border-bottom:1px dashed rgba(255,255,255,.08);}#tfbot-overlay input, #tfbot-overlay textarea{width:100%; padding:6px; background:#0b0f14; border:1px solid #2f4f2f; color:#fff; border-radius:6px; font-size:12px; box-sizing:border-box;}#tfbot-overlay textarea{resize:vertical;}';document.head.appendChild(_0x39d4);document.body.appendChild(_0x38c3);_0x115c.ui={root:_0x38c3,indicator:_0x38c3.querySelector('#tfbot-indicator'),status:_0x38c3.querySelector('#tfbot-status'),state:_0x38c3.querySelector('#tfbot-state'),safeCount:_0x38c3.querySelector('#tfbot-safe-count'),ignoreCount:_0x38c3.querySelector('#tfbot-ignore-count'),unknownCount:_0x38c3.querySelector('#tfbot-unknown-count'),bbCheckedCount:_0x38c3.querySelector('#tfbot-bbchecked-count'),summary:_0x38c3.querySelector('#tfbot-summary'),content:_0x38c3.querySelector('#tfbot-content'),subActionPanel:_0x38c3.querySelector('#sub-action-panel'),subActionInner:_0x38c3.querySelector('#sub-action-inner'),modeToggleBtn:document.getElementById('filter-toggle-btn')};_0x38c3.querySelectorAll('button[data-act]').forEach(_0x3ae5=>{_0x3ae5.addEventListener('click',()=>_0x4bf6(_0x3ae5.dataset.act));});}function _0x3cf7(){if(document.getElementById('bbcheck-fab'))return;const _0x3d08=document.createElement('div');_0x3d08.id='bbcheck-fab';_0x3d08.textContent='BB';_0x3d08.style.cssText='position:fixed;bottom:20px;right:20px;z-index:99998;width:44px;height:44px;border-radius:50%;background:#182533;color:#d7ffd7;border:2px solid #2f4f2f;font-weight:bold;font-size:16px;line-height:40px;text-align:center;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.35);touch-action:manipulation;user-select:none';_0x3d08.addEventListener('click',_0x3e19);document.body.appendChild(_0x3d08);}function _0x3e19(){const _0x3f2a=document.getElementById('bbcheck-modal');if(_0x3f2a)_0x3f2a.remove();const _0x403b=document.createElement('div');_0x403b.id='bbcheck-modal';_0x403b.style.cssText='position:fixed;top:0;left:0;z-index:99999;width:100%;height:100%;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center';_0x403b.innerHTML='<div style="background:#0b0f14;border:1px solid #2f4f2f;border-radius:14px;padding:20px;min-width:280px;max-width:90vw;color:#d7ffd7;font:14px system-ui;box-shadow:0 8px 24px rgba(0,0,0,.5);"><div style="font-weight:700;font-size:16px;margin-bottom:12px;">🔍 Manual BB Check</div><input id="bbcheck-input" type="text" placeholder="r/AskReddit or sub name" style="width:100%;padding:8px;border:1px solid #2f4f2f;background:#101820;color:#fff;border-radius:6px;font-size:14px;box-sizing:border-box;margin-bottom:12px;"><div style="display:flex;gap:8px;"><button id="bbcheck-go" style="flex:1;background:#2f4f2f;border:none;color:white;padding:8px;border-radius:6px;font-weight:600;">Check</button><button id="bbcheck-cancel" style="background:#444;border:none;color:white;padding:8px 16px;border-radius:6px;">Cancel</button></div></div>';document.body.appendChild(_0x403b);_0x403b.querySelector('#bbcheck-input').focus();_0x403b.querySelector('#bbcheck-cancel').addEventListener('click',()=>_0x403b.remove());_0x403b.querySelector('#bbcheck-go').addEventListener('click',()=>{const _0x414c=_0x403b.querySelector('#bbcheck-input').value.trim();const _0x425d=_0x126d(_0x414c);if(!_0x425d){alert('❌ Could not extract a valid subreddit name.');return;}_0x403b.remove();location.href=`https://www.reddit.com/r/${_0x425d}/about`;});_0x403b.addEventListener('click',_0x436e=>{if(_0x436e.target===_0x403b)_0x403b.remove();});}function _0x437e(){if(!_0x115c.ui)return;_0x115c.ui.safeCount.textContent=_0x2bf6.size;_0x115c.ui.ignoreCount.textContent=_0x2c07.size;_0x115c.ui.unknownCount.textContent=_0x115c.pendingUnknown.length;_0x115c.ui.bbCheckedCount.textContent=_0x115c.bbCheckedSubs.length;_0x115c.ui.modeToggleBtn.textContent=`Filter: ${_0x115c.filteringMode?'ON':'OFF'}`;if(_0x115c.mode==='safe'){_0x4a7e('Safe Subs',[..._0x2bf6].sort());}else if(_0x115c.mode==='ignored'){_0x4a7e('Ignored Subs',[..._0x2c07].sort());}else{_0x447f();}}function _0x447f(){if(!_0x115c.ui)return;const _0x4590=_0x115c.lastDetectedTask?`<div><b>Last task:</b> r/${_0x148f(_0x115c.lastDetectedTask.subreddit)}<br><small>${_0x148f(_0x115c.lastDetectedTask.link)}</small></div>`:'<div>No task selected yet.</div>';_0x115c.ui.summary.innerHTML=`<div><b>Overview</b></div><div><b>Tasks visible:</b> ${_0x115c.lastKnownCount||'?'}</div>${_0x4590}`;let _0x46a1='';_0x46a1+='<div style="margin-bottom:12px;"><b>📌 Unknown Tasks:</b></div>';if(_0x115c.pendingUnknown.length){_0x115c.pendingUnknown.forEach((_0x47b2,_0x48c3)=>{_0x46a1+=`<div class="task-card"><div><b>${_0x48c3+1}. r/${_0x148f(_0x47b2.subreddit)}</b></div><div><small>${_0x148f(_0x47b2.link)}</small></div><div class="task-actions"><button data-unk-act="claim" data-link="${_0x148f(_0x47b2.link)}">Claim</button><button data-unk-act="claim-safe" data-link="${_0x148f(_0x47b2.link)}">Claim+Safe</button><button data-unk-act="ignore" data-link="${_0x148f(_0x47b2.link)}" data-sub="${_0x148f(_0x47b2.subreddit)}">Add Ignored</button></div></div>`;});}else{_0x46a1+='<div>None</div>';}_0x46a1+='<div style="margin-top:12px;margin-bottom:8px;"><b>📦 Last BB‑Checked Subs:</b></div>';if(_0x115c.bbCheckedSubs.length){const _0x49d4=_0x115c.bbCheckedSubs.slice(-_0xae5.bbHistoryMax).reverse();_0x49d4.forEach(_0x4ae5=>{_0x46a1+=`<div class="task-card"><div><b>r/${_0x148f(_0x4ae5.sub)}</b> – ${_0x148f(_0x4ae5.result)}</div><div class="task-actions"><button data-bb-act="safe" data-sub="${_0x148f(_0x4ae5.sub)}">Add Safe</button><button data-bb-act="ignore" data-sub="${_0x148f(_0x4ae5.sub)}">Add Ignored</button></div></div>`;});}else{_0x46a1+='<div>None yet</div>';}_0x115c.ui.content.innerHTML=_0x46a1;_0x115c.ui.content.querySelectorAll('button[data-bb-act]').forEach(_0x4bf6=>{_0x4bf6.addEventListener('click',()=>{const _0x4c07=_0x4bf6.dataset.sub;if(_0x4bf6.dataset.bbAct==='safe')_0x2f3a(_0x4c07);else _0x337e(_0x4c07);});});_0x115c.ui.content.querySelectorAll('button[data-unk-act]').forEach(_0x4d18=>{_0x4d18.addEventListener('click',()=>{_0x4e29(_0x4d18.dataset.unkAct,_0x4d18.dataset.link,_0x4d18.dataset.sub);});});}function _0x4a7e(_0x4b8f,_0x4c90){_0x115c.ui.summary.innerHTML=`<div><b>Mode:</b> ${_0x4b8f}</div><div><b>Total:</b> ${_0x4c90.length}</div>`;_0x115c.ui.content.innerHTML=_0x4c90.length?_0x4c90.map(_0x4da1=>`<div class="list-item">${_0x148f(_0x4da1)}</div>`).join(''):'<div>No items.</div>';}function _0x4e29(_0x4f3a,_0x504b,_0x515c){const _0x526d=_0x115c.pendingUnknown.find(_0x537e=>_0x537e.link===_0x504b);if(!_0x526d)return;if(_0x4f3a==='claim'){_0x548f(_0x526d);}else if(_0x4f3a==='claim-safe'){_0x2f3a(_0x515c);_0x548f(_0x526d);}else if(_0x4f3a==='ignore'){_0x337e(_0x515c);_0x115c.pendingUnknown=_0x115c.pendingUnknown.filter(_0x5590=>_0x5590.link!==_0x504b);_0x437e();}}function _0x56a1(_0x57b2){const _0x58c3=document.createElement('div');_0x58c3.style.cssText='position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:99999;background:#0b0f14;color:#d7ffd7;border:2px solid #2f4f2f;border-radius:14px;padding:20px;text-align:center;font:14px system-ui;box-shadow:0 8px 24px rgba(0,0,0,.5);';_0x58c3.innerHTML='<div style="font-size:18px;font-weight:700;margin-bottom:8px;">🎉 Task Claimed!</div><div>Congratulations, task successfully claimed.</div><div style="margin:10px 0;"><a href="https://taskflux.net/tasks" target="_blank" style="color:#55ff88;">Visit your tasks</a></div><button id="bb-close-notif" style="background:#2f4f2f;border:none;color:white;padding:8px 16px;border-radius:6px;cursor:pointer;">Close</button>';document.body.appendChild(_0x58c3);document.getElementById('bb-close-notif').addEventListener('click',()=>_0x58c3.remove());setTimeout(()=>_0x58c3.remove(),15000);}function _0x59d4(){const _0x5ae5=[...document.querySelectorAll('button')].filter(_0x5bf6=>/claim|accept|take task/i.test(_0x5bf6.innerText||''));const _0x5c07=[];const _0x5d18=new Set();for(const _0x5e29 of _0x5ae5){let _0x5f3a=_0x5e29.closest('div, li, article, section, form, [role="listitem"]');while(_0x5f3a&&_0x5f3a!==document.body){if(/reddit\.com\/r\//i.test(_0x5f3a.innerText||''))break;_0x5f3a=_0x5f3a.parentElement?.closest('div, li, article, section, form, [role="listitem"]')||null;}if(!_0x5f3a||_0x5f3a===document.body)continue;const _0x604b=_0x5f3a.innerText||'';const _0x615c=_0x604b.match(/https?:\/\/(?:www\.)?reddit\.com\/r\/[^\s)]+/i);if(!_0x615c)continue;const _0x626d=_0x615c[0].trim();const _0x637e=_0x626d.match(/reddit\.com\/r\/([a-z0-9_]+)/i);if(!_0x637e)continue;const _0x648f=_0x637e[1].toLowerCase();if(!_0x5d18.has(_0x626d)){_0x5d18.add(_0x626d);_0x5c07.push({subreddit:_0x648f,link:_0x626d,buttonElement:_0x5e29});}}return _0x5c07;}function _0x548f(_0x6590){try{_0x6590.buttonElement.scrollIntoView({block:'center',behavior:'instant'});}catch{}_0x6590.buttonElement.click();}function _0x66a1(_0x67b2){_0x215c(_0xe29.stopped,_0x67b2);if(_0x67b2){_0x115c.running=false;_0x115c.filteringMode=false;_0x215c(_0xe29.filteringMode,false);if(_0x115c.currentTimer)clearTimeout(_0x115c.currentTimer);}_0x68c3(!_0x67b2);}function _0x69d4(){_0x215c(_0xe29.stopped,false);_0x115c.running=true;_0x115c.filteringMode=false;_0x215c(_0xe29.filteringMode,false);_0x68c3(true);_0x115c.ui.status.textContent='Running';_0x437e();if(_0x115c.currentTimer)clearTimeout(_0x115c.currentTimer);_0x115c.currentTimer=setTimeout(_0x6ae5,_0xae5.initialStartDelayMs);}function _0x6bf6(){_0x66a1(true);_0x115c.ui.status.textContent='Stopped';_0x437e();}function _0x6c07(_0x6d18,_0x6e29=0){const _0x6f3a=_0x59d4();if(_0x6f3a.length>0)return _0x6d18(_0x6f3a);if(_0x6e29>=_0xae5.maxPageWaitRetries){location.reload();return;}setTimeout(()=>_0x6c07(_0x6d18,_0x6e29+1),_0xae5.pageWaitIntervalMs);}function _0x6ae5(){if(_0x2d18()&&!_0x115c.filteringMode){_0x115c.ui.status.textContent='Stopped';return;}_0x115c.ui.status.textContent='Scanning tasks...';_0x6c07(_0x704b=>{_0x115c.lastKnownCount=_0x704b.length;const _0x715c=_0x704b.filter(_0x726d=>_0x2bf6.has(_0x726d.subreddit));const _0x737e=_0x704b.filter(_0x748f=>!_0x2bf6.has(_0x748f.subreddit)&&!_0x2c07.has(_0x748f.subreddit));_0x115c.pendingUnknown=_0x737e;_0x437e();if(_0x715c.length>0){const _0x7590=_0x715c[0];_0x548f(_0x7590);_0x66a1(true);_0x56a1(_0x7590.link);return;}if((_0x115c.filteringMode||_0x115c.running)&&_0x737e.length>0){if(_0x115c.bbQueue.length===0&&!_0x115c.bbInProgress){_0x115c.bbQueue=[...new Set(_0x737e.map(_0x76a1=>_0x76a1.subreddit))];_0x28c3(_0xe29.bbQueue,_0x115c.bbQueue);}if(_0x115c.bbQueue.length>0&&!_0x115c.bbInProgress){_0x77b2();return;}}if(_0x115c.running||_0x115c.filteringMode){_0x78c3();}});}function _0x77b2(){if(_0x115c.bbQueue.length===0)return;const _0x79d4=_0x115c.bbQueue[0];_0x115c.bbInProgress=true;_0x215c(_0xe29.bbInProgress,true);GM_setValue(_0x104b,JSON.stringify(_0x115c.bbQueue));GM_setValue(_0xf3a,'1');_0x115c.ui.status.textContent=`Checking r/${_0x79d4}… (leaving dashboard)`;location.href=`https://www.reddit.com/r/${_0x79d4}/about`;}function _0x78c3(){if(_0x115c.currentTimer)clearTimeout(_0x115c.currentTimer);_0x115c.currentTimer=setTimeout(()=>location.reload(),_0xae5.reloadDelayMs);}function _0x4bf6(_0x7ae5){switch(_0x7ae5){case'start':_0x69d4();break;case'stop':_0x6bf6();break;case'toggle-filter':_0x115c.filteringMode=!_0x115c.filteringMode;_0x215c(_0xe29.filteringMode,_0x115c.filteringMode);if(_0x115c.filteringMode){_0x66a1(false);_0x115c.running=true;_0x68c3(true);_0x115c.ui.status.textContent='Filtering mode ON';}else{_0x115c.running=false;_0x68c3(false);_0x115c.ui.status.textContent='Filtering mode OFF';}_0x115c.mode='overview';_0x437e();if(_0x115c.filteringMode){if(_0x115c.currentTimer)clearTimeout(_0x115c.currentTimer);_0x115c.currentTimer=setTimeout(_0x6ae5,500);}break;case'add-subs':case'remove-subs':_0x7bf6(_0x7ae5==='add-subs'?'add':'remove');break;case'bulk-import':_0x7c07();break;case'view-safe':_0x115c.mode='safe';_0x437e();break;case'view-ignore':_0x115c.mode='ignored';_0x437e();break;case'clear-view':_0x115c.mode='overview';_0x437e();break;case'hide':_0x115c.ui.root.style.display='none';break;}}function _0x7bf6(_0x7d18){const _0x7e29=_0x115c.ui.subActionPanel;_0x7e29.style.display='block';_0x115c.ui.subActionInner.innerHTML='';const _0x7f3a=_0x7d18==='add'?['Add to Safe','Add to Ignored']:['Remove from Safe','Remove from Ignored'];_0x7f3a.forEach(_0x804b=>{const _0x815c=document.createElement('button');_0x815c.textContent=_0x804b;_0x815c.style.marginRight='4px';_0x815c.addEventListener('click',()=>{if(_0x804b.includes('Safe')||_0x804b.includes('Ignored')){_0x826d(_0x7d18,_0x804b.includes('Safe')?'safe':'ignored');}});_0x115c.ui.subActionInner.appendChild(_0x815c);});const _0x837e=document.createElement('button');_0x837e.textContent='Cancel';_0x837e.addEventListener('click',()=>{_0x7e29.style.display='none';});_0x115c.ui.subActionInner.appendChild(_0x837e);}function _0x826d(_0x848f,_0x8590){_0x115c.ui.subActionInner.innerHTML='<input id="sub-input-field" type="text" placeholder="Sub name"><button id="sub-confirm">Confirm</button><button id="sub-cancel">Cancel</button>';document.getElementById('sub-confirm').addEventListener('click',()=>{const _0x86a1=document.getElementById('sub-input-field').value.trim();if(!_0x86a1)return;if(_0x848f==='add'){if(_0x8590==='safe')_0x2f3a(_0x86a1);else _0x337e(_0x86a1);}else{if(_0x8590==='safe'){if(_0x2bf6.has(_0x86a1)){_0x2bf6.delete(_0x86a1);_0x2e29();_0x437e();}else alert('Sub not in safe list.');}else{if(_0x2c07.has(_0x86a1)){_0x2c07.delete(_0x86a1);_0x2e29();_0x437e();}else alert('Sub not in ignored list.');}}_0x115c.ui.subActionPanel.style.display='none';});document.getElementById('sub-cancel').addEventListener('click',()=>{_0x115c.ui.subActionPanel.style.display='none';});}function _0x7c07(){const _0x87b2=_0x115c.ui.subActionPanel;_0x87b2.style.display='block';_0x115c.ui.subActionInner.innerHTML='<div style="margin-bottom:6px;font-weight:700">Bulk Import</div><textarea id="bulk-import-text" placeholder="Paste subreddits separated by commas or new lines" style="height:80px;"></textarea><div style="margin-top:6px;display:flex;gap:6px"><button id="bulk-import-safe" style="flex:1">Add to Safe</button><button id="bulk-import-ignore" style="flex:1">Add to Ignored</button><button id="bulk-cancel" style="background:#444">Cancel</button></div>';document.getElementById('bulk-import-safe').addEventListener('click',()=>{const _0x88c3=document.getElementById('bulk-import-text').value;const _0x89d4=_0x88c3.split(/[,\n]+/).map(_0x8ae5=>_0x126d(_0x8ae5)).filter(Boolean);_0x89d4.forEach(_0x8bf6=>_0x2f3a(_0x8bf6));_0x87b2.style.display='none';});document.getElementById('bulk-import-ignore').addEventListener('click',()=>{const _0x8c07=document.getElementById('bulk-import-text').value;const _0x8d18=_0x8c07.split(/[,\n]+/).map(_0x8e29=>_0x126d(_0x8e29)).filter(Boolean);_0x8d18.forEach(_0x8f3a=>_0x337e(_0x8f3a));_0x87b2.style.display='none';});document.getElementById('bulk-cancel').addEventListener('click',()=>{_0x87b2.style.display='none';});}function _0x68c3(_0x904b){if(!_0x115c.ui)return;_0x115c.ui.state.textContent=_0x904b?'RUNNING':'STOPPED';_0x115c.ui.indicator.style.background=_0x904b?'#55ff88':'#ff6666';}function _0x915c(){if(!/^https:\/\/www\.reddit\.com\/r\/[a-z0-9_]+\/about/i.test(location.href))return;const _0x926d=location.pathname.split('/')[2];const _0x937e=GM_getValue(_0xf3a,null)==='1';const _0x948f=setInterval(()=>{const _0x9590=document.body.innerText.toLowerCase();if(_0x9590.includes('installed apps')||_0x9590.includes('moderators')){clearInterval(_0x948f);const _0x96a1=_0x9590.includes('bot bouncer');if(_0x937e){if(_0x96a1){_0x337e(_0x926d);}else{_0x2f3a(_0x926d);}if(!_0x115c.bbCheckedSubs.find(_0x97b2=>_0x97b2.sub===_0x926d)){_0x115c.bbCheckedSubs.push({sub:_0x926d,result:_0x96a1?'BotBouncer':'No BotBouncer'});_0x28c3(_0xe29.bbCheckedSubs,_0x115c.bbCheckedSubs);}const _0x98c3=GM_getValue(_0x104b,null);if(_0x98c3){try{const _0x99d4=JSON.parse(_0x98c3);if(Array.isArray(_0x99d4)&&_0x99d4.length>0)_0x99d4.shift();GM_setValue(_0x104b,JSON.stringify(_0x99d4));}catch{}}GM_setValue(_0xf3a,'');setTimeout(()=>{location.href='https://taskflux.net/dashboard';},1000);}else{const _0x9ae5=_0x96a1?'✅ Bot Bouncer DETECTED → add to IGNORED':'⚠️ No Bot Bouncer → add to SAFE';const _0x9bf6=document.createElement('div');_0x9bf6.style.cssText='position:fixed;top:20px;left:20px;z-index:99999;background:#0b0f14;color:#d7ffd7;border:2px solid #2f4f2f;border-radius:14px;padding:18px;max-width:90vw;font:14px system-ui;box-shadow:0 8px 24px rgba(0,0,0,.5);';_0x9bf6.innerHTML=`<div style="font-weight:700;font-size:16px;margin-bottom:10px;">🔍 r/${_0x926d}</div><div style="white-space:pre-wrap;font-family:monospace;">${_0x9ae5}</div><button id="bb-manual-back" style="margin-top:10px;background:#2f4f2f;border:none;color:white;padding:6px 14px;border-radius:6px;cursor:pointer;">Go Back</button>`;document.body.appendChild(_0x9bf6);document.getElementById('bb-manual-back').addEventListener('click',()=>{history.back();setTimeout(()=>{if(_0x9bf6.parentNode)_0x9bf6.remove();},500);});}}},300);setTimeout(()=>clearInterval(_0x948f),15000);}function _0x9c07(){if(location.hostname==='www.reddit.com'&&/^\/r\/[a-z0-9_]+\/about/i.test(location.pathname)){_0x915c();return;}_0x37b2();_0x3cf7();const _0x9d18=GM_getValue(_0x104b,null);if(_0x9d18){try{const _0x9e29=JSON.parse(_0x9d18);if(Array.isArray(_0x9e29)&&_0x9e29.length>0){_0x115c.bbQueue=_0x9e29;_0x28c3(_0xe29.bbQueue,_0x115c.bbQueue);}}catch{}GM_setValue(_0x104b,'');}if(GM_getValue(_0xf3a,null)==='1'){GM_setValue(_0xf3a,'');}const _0x9f3a=_0x2d18();_0x68c3(!_0x9f3a);_0x115c.running=!_0x9f3a&&!_0x115c.filteringMode;if(_0x115c.filteringMode){_0x68c3(true);_0x115c.running=true;_0x115c.ui.status.textContent='Filtering mode ON';}else{_0x115c.ui.status.textContent=_0x9f3a?'Stopped':'Ready';}_0x437e();if(_0x115c.running||_0x115c.filteringMode){if(_0x115c.currentTimer)clearTimeout(_0x115c.currentTimer);_0x115c.currentTimer=setTimeout(_0x6ae5,1000);}}if(document.readyState==='complete'||document.readyState==='interactive'){_0x12d7();}else{window.addEventListener('DOMContentLoaded',_0x12d7);}})();
+// ==UserScript==
+// @name         TaskFlux Auto Claimer (Licensed)
+// @namespace    taskflux.auto.claim.bb
+// @version      9.0.0
+// @description  Auto‑activates from download link. License required.
+// @match        https://taskflux.net/dashboard*
+// @match        https://www.reddit.com/r/*/about*
+// @grant        GM_xmlhttpRequest
+// @grant        GM_setValue
+// @grant        GM_getValue
+// ==/UserScript==
+
+(function () {
+  'use strict';
+
+  const X = "%%SERVER_URL%%";
+  const LIC = "%%LICENSE%%";
+
+  function fp() {
+    return [
+      navigator.userAgent,
+      screen.width + 'x' + screen.height,
+      new Date().getTimezoneOffset(),
+      navigator.hardwareConcurrency || 'na',
+      navigator.deviceMemory || 'na'
+    ].join('###');
+  }
+
+  function api(endpoint, data) {
+    return new Promise((resolve, reject) => {
+      GM_xmlhttpRequest({
+        method: 'POST',
+        url: X + endpoint,
+        headers: { 'Content-Type': 'application/json' },
+        data: JSON.stringify(data),
+        onload: (r) => {
+          try { resolve(JSON.parse(r.responseText)); } catch { reject('Bad JSON'); }
+        },
+        onerror: () => reject('Network error'),
+        ontimeout: () => reject('Timeout')
+      });
+    });
+  }
+
+  async function chkLic() {
+    if (LIC && LIC !== '%%LICENSE%%') {
+      GM_setValue('lic_key', LIC);
+    }
+
+    let license = GM_getValue('lic_key', '');
+    let token = GM_getValue('lic_token', '');
+
+    if (license && token) {
+      try {
+        const v = await api('/validate', { license, token });
+        if (v.status === 'valid') return true;
+      } catch {}
+      const last = GM_getValue('lic_last_valid', 0);
+      if (Date.now() - last < 86400000) return true;
+    }
+
+    if (!license) return false;
+
+    try {
+      const f = fp();
+      const r = await api('/activate', { license, fingerprint: f });
+      if (r.status === 'ok') {
+        GM_setValue('lic_key', license);
+        GM_setValue('lic_token', r.token);
+        GM_setValue('lic_last_valid', Date.now());
+        return true;
+      } else if (r.status === 'already_bound') {
+        alert('This license is already used on another device.\nContact support.');
+        return false;
+      } else {
+        GM_setValue('lic_key', '');
+        return false;
+      }
+    } catch {
+      const last = GM_getValue('lic_last_valid', 0);
+      if (Date.now() - last < 86400000) return true;
+      return false;
+    }
+  }
+
+  (async function() {
+    const ok = await chkLic().catch(() => false);
+    if (!ok) return;
+
+    const CFG = {
+      reloadDelay: 3200,
+      initDelay: 1200,
+      prefix: 'tfbot.',
+      maxRetries: 10,
+      retryInterval: 400,
+      bbHistory: 10
+    };
+
+    const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
+
+    const DEF_SAFE = [
+      'aicompanions','aivideos','amazonsellercentral','asknyc','athleanx',
+      'badenwuerttemberg','boardgames','coinmarketcap','coldemail',
+      'companionsonar','contentcreators','cryptoscams','dropshipping',
+      'emailforsmallbusiness','generativeseostrategy','growmybusiness',
+      'gymowner','hiringpakistan','hoboken','lakers','linkbuilding',
+      'martialfetish','medspa','micro_saas','mounjarodeutschland','norway',
+      'onlinegambling','ouraring','passive_income','pestcontrol','proteomics',
+      'saassales','sgexams','sit_singapore','socialmediamarketing',
+      'southflorida','stlouis','sweatystartup','westpalmbeach'
+    ];
+    const DEF_IGNORED = [
+      '30plusskincare','adhs','adulting','aipartners','askanaustralian',
+      'askbrits','askmen','askphoenix','askredditnsfw','asksingapore',
+      'asksouthafrica','askto','aussie','bayarea','beyondthebump',
+      'bigbudgetbrides','bogleheads','businessideas','businesstantrums',
+      'buycanadian','campinggear','catownerhacks','ceh','characterairunaways',
+      'chatgpt','claudeai','coloranalysis','cryptomarkets','cybersecurity',
+      'cybersecurity_help','devpt','digitalminimalism','dragonquest','driving',
+      'emailprivacy','expats','explainthejoke','femalefashionadvice','finanzen',
+      'firsttimehomebuyer','g2g_com','gamblingaddiction','gaming','generativeai',
+      'goldendoodles','hairtransplants','headshots','henryuk','herahaven',
+      'hiking','instagram','interesting','interestingasfuck','iosgaming',
+      'japanlife','karate','labrats','landlord','leadgeneration','legaladviceuk',
+      'life','lifeadvice','lifeprotips','linkedin','listentothis','localllama',
+      'longhair','longreads','makeup','makeupaddiction','masturbation','meme',
+      'memes','mentalhealth','mississauga','mommit','money','motouk',
+      'muradgussahokya','n8n','neweracaps','newparents','northcountry',
+      'northcounty','oculusquest','parenting','pregnant','prepping','privacy',
+      'productivity','productmanagement','recruitinghell','rheumatoid',
+      'sacramento','savannah','scams','seo','sidehustle','sideproject',
+      'skincareaddiction','smallbusinessuk','smma','socialmedia','software',
+      'softwarelabs','stablediffusion','startup','stocks','studytips','sysadmin',
+      'tax','techgore','technology','techsales','tempe','toddlers','topazlabs',
+      'transhumanism','travelhacks','trt','trueoffmychest','ukpolitics',
+      'unitedkingdom','vegas','vibecoding','virginiabeach','virtualreality',
+      'webscraping','wimbledon','womensfashion','zepbound','zerowaste'
+    ];
+
+    const S = {
+      safe: `${CFG.prefix}safeSubs`,
+      ignored: `${CFG.prefix}ignoredSubs`,
+      stopped: `${CFG.prefix}stopped`,
+      lastClaimed: `${CFG.prefix}lastClaimed`,
+      bbQueue: `${CFG.prefix}bbQueue`,
+      bbInProgress: `${CFG.prefix}bbInProgress`,
+      filteringMode: `${CFG.prefix}filteringMode`,
+      bbCheckedSubs: `${CFG.prefix}bbCheckedSubs`
+    };
+
+    const AUTO = 'tfbot_auto_mode';
+    const QUEUE = 'tfbot_auto_queue';
+
+    const state = {
+      running: false,
+      mode: 'overview',
+      lastDetectedTask: null,
+      pendingUnknown: [],
+      lastKnownCount: 0,
+      currentTimer: null,
+      ui: null,
+      bbQueue: [],
+      bbInProgress: false,
+      filteringMode: false,
+      bbCheckedSubs: [],
+      popup: null
+    };
+
+    function norm(sub) {
+      return String(sub || '').replace(/^r\//i, '').trim().toLowerCase();
+    }
+
+    function esc(s) {
+      return String(s || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function loadSet(key, fallback) {
+      try {
+        const raw = GM_getValue(key);
+        return raw ? new Set(JSON.parse(raw).map(norm).filter(Boolean)) : new Set(fallback.map(norm));
+      } catch { return new Set(fallback.map(norm)); }
+    }
+
+    function saveSet(key, set) {
+      GM_setValue(key, JSON.stringify([...set].sort()));
+    }
+
+    function loadFlag(key, fallback = false) {
+      const v = GM_getValue(key, null);
+      return v !== null ? v === true || v === 'true' : fallback;
+    }
+
+    function saveFlag(key, value) {
+      GM_setValue(key, value);
+    }
+
+    function loadJSON(key, fallback = []) {
+      try {
+        const raw = GM_getValue(key, null);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch { return fallback; }
+    }
+
+    function saveJSON(key, value) {
+      GM_setValue(key, JSON.stringify(value));
+    }
+
+    let safeSubs = loadSet(S.safe, DEF_SAFE);
+    let ignoredSubs = loadSet(S.ignored, DEF_IGNORED);
+    state.bbCheckedSubs = loadJSON(S.bbCheckedSubs, []);
+    state.bbQueue = [];
+    saveJSON(S.bbQueue, []);
+    state.bbInProgress = false;
+    saveFlag(S.bbInProgress, false);
+    state.filteringMode = loadFlag(S.filteringMode, false);
+    const isStopped = () => loadFlag(S.stopped, true);
+
+    function persist() {
+      saveSet(S.safe, safeSubs);
+      saveSet(S.ignored, ignoredSubs);
+    }
+
+    function addSafe(sub) {
+      const s = norm(sub);
+      if (!s) return false;
+      if (ignoredSubs.has(s)) ignoredSubs.delete(s);
+      const added = !safeSubs.has(s);
+      safeSubs.add(s);
+      persist();
+      if (state.ui) render();
+      return added;
+    }
+
+    function addIgnored(sub) {
+      const s = norm(sub);
+      if (!s) return false;
+      if (safeSubs.has(s)) safeSubs.delete(s);
+      const added = !ignoredSubs.has(s);
+      ignoredSubs.add(s);
+      persist();
+      if (state.ui) render();
+      return added;
+    }
+
+    function createUI() {
+      const wrap = document.createElement('div');
+      wrap.id = 'tfbot-overlay';
+      wrap.style.cssText = [
+        'position:fixed','top:10px','right:10px','z-index:2147483646',
+        'width:340px','max-width:92vw','background:#0b0f14','color:#d7ffd7',
+        'border:1px solid #2f4f2f','border-radius:14px',
+        'padding:10px','font-family:system-ui,sans-serif','font-size:13px',
+        'box-shadow:0 8px 24px rgba(0,0,0,.35)','max-height:85vh','overflow-y:auto'
+      ].join(';');
+
+      wrap.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <div style="font-weight:800;font-size:14px">TaskFlux Control</div>
+          <div id="tfbot-indicator" style="width:10px;height:10px;border-radius:50%;background:#666"></div>
+        </div>
+        <div style="margin-bottom:8px;line-height:1.4">
+          <div>Status: <span id="tfbot-status">Stopped</span></div>
+          <div>State: <span id="tfbot-state">STOPPED</span></div>
+          <div>Safe: <span id="tfbot-safe-count">0</span> | Ignored: <span id="tfbot-ignore-count">0</span></div>
+          <div>Unknown: <span id="tfbot-unknown-count">0</span> | BB Checked: <span id="tfbot-bbchecked-count">0</span></div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+          <button data-act="start" style="flex:1;background:#2f4f2f;">▶ Start</button>
+          <button data-act="stop" style="flex:1;background:#4f2f2f;">⏹ Stop</button>
+          <button data-act="toggle-filter" id="filter-toggle-btn" style="flex:1;">Filter: OFF</button>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+          <button data-act="add-subs" style="flex:1;">Add Subs</button>
+          <button data-act="remove-subs" style="flex:1;">Remove Subs</button>
+          <button data-act="bulk-import" style="flex:1;">Bulk Import</button>
+        </div>
+        <div id="sub-action-panel" style="display:none;margin-bottom:8px;border:1px solid #2f4f2f;border-radius:8px;padding:6px;background:#101820">
+          <div id="sub-action-inner"></div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+          <button data-act="view-safe" style="flex:1;">View Safe</button>
+          <button data-act="view-ignore" style="flex:1;">View Ignored</button>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+          <button data-act="clear-view" style="flex:1;">Overview</button>
+          <button data-act="hide" style="flex:1;background:#333;">Hide</button>
+        </div>
+        <div id="tfbot-summary" style="padding:8px;border:1px solid #2f4f2f;border-radius:10px;margin-bottom:8px;background:#101820;line-height:1.4"></div>
+        <div id="tfbot-content" style="max-height:280px;overflow:auto;border-top:1px solid #2f4f2f;padding-top:8px"></div>
+      `;
+
+      const style = document.createElement('style');
+      style.textContent = `
+        #tfbot-overlay button{
+          background:#182533; color:#fff; border:1px solid #2f4f2f;
+          border-radius:8px; padding:6px 8px; font-size:12px; cursor:pointer;
+        }
+        #tfbot-overlay button:active{transform:scale(.97)}
+        #tfbot-overlay .task-card{
+          border:1px solid #2f4f2f; border-radius:10px; padding:8px;
+          margin-bottom:8px; background:#101820;
+        }
+        #tfbot-overlay .task-actions{display:flex; gap:4px; flex-wrap:wrap; margin-top:6px;}
+        #tfbot-overlay .task-actions button{flex:1; min-width:60px;}
+        #tfbot-overlay .list-item{padding:5px 0; border-bottom:1px dashed rgba(255,255,255,.08);}
+        #tfbot-overlay input, #tfbot-overlay textarea{
+          width:100%; padding:6px; background:#0b0f14; border:1px solid #2f4f2f;
+          color:#fff; border-radius:6px; font-size:12px; box-sizing:border-box;
+        }
+        #tfbot-overlay textarea{resize:vertical;}
+      `;
+      document.head.appendChild(style);
+      document.body.appendChild(wrap);
+
+      state.ui = {
+        root: wrap,
+        indicator: wrap.querySelector('#tfbot-indicator'),
+        status: wrap.querySelector('#tfbot-status'),
+        state: wrap.querySelector('#tfbot-state'),
+        safeCount: wrap.querySelector('#tfbot-safe-count'),
+        ignoreCount: wrap.querySelector('#tfbot-ignore-count'),
+        unknownCount: wrap.querySelector('#tfbot-unknown-count'),
+        bbCheckedCount: wrap.querySelector('#tfbot-bbchecked-count'),
+        summary: wrap.querySelector('#tfbot-summary'),
+        content: wrap.querySelector('#tfbot-content'),
+        subActionPanel: wrap.querySelector('#sub-action-panel'),
+        subActionInner: wrap.querySelector('#sub-action-inner'),
+        modeToggleBtn: document.getElementById('filter-toggle-btn')
+      };
+
+      wrap.querySelectorAll('button[data-act]').forEach(btn => {
+        btn.addEventListener('click', () => handleAction(btn.dataset.act));
+      });
+    }
+
+    function createBBButton() {
+      if (document.getElementById('bbcheck-fab')) return;
+      const btn = document.createElement('div');
+      btn.id = 'bbcheck-fab';
+      btn.textContent = 'BB';
+      btn.style.cssText = [
+        'position:fixed','bottom:20px','right:20px','z-index:99998',
+        'width:44px','height:44px','border-radius:50%',
+        'background:#182533','color:#d7ffd7','border:2px solid #2f4f2f',
+        'font-weight:bold','font-size:16px','line-height:40px','text-align:center',
+        'cursor:pointer','box-shadow:0 4px 12px rgba(0,0,0,.35)',
+        'touch-action:manipulation','user-select:none'
+      ].join(';');
+      btn.addEventListener('click', openBBModal);
+      document.body.appendChild(btn);
+    }
+
+    function openBBModal() {
+      const existing = document.getElementById('bbcheck-modal');
+      if (existing) existing.remove();
+
+      const modal = document.createElement('div');
+      modal.id = 'bbcheck-modal';
+      modal.style.cssText = 'position:fixed;top:0;left:0;z-index:99999;width:100%;height:100%;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center';
+      modal.innerHTML = `
+        <div style="background:#0b0f14;border:1px solid #2f4f2f;border-radius:14px;padding:20px;min-width:280px;max-width:90vw;color:#d7ffd7;font:14px system-ui;box-shadow:0 8px 24px rgba(0,0,0,.5);">
+          <div style="font-weight:700;font-size:16px;margin-bottom:12px;">🔍 Manual BB Check</div>
+          <input id="bbcheck-input" type="text" placeholder="r/AskReddit or sub name" style="width:100%;padding:8px;border:1px solid #2f4f2f;background:#101820;color:#fff;border-radius:6px;font-size:14px;box-sizing:border-box;margin-bottom:12px;">
+          <div style="display:flex;gap:8px;">
+            <button id="bbcheck-go" style="flex:1;background:#2f4f2f;border:none;color:white;padding:8px;border-radius:6px;font-weight:600;">Check</button>
+            <button id="bbcheck-cancel" style="background:#444;border:none;color:white;padding:8px 16px;border-radius:6px;">Cancel</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      modal.querySelector('#bbcheck-input').focus();
+      modal.querySelector('#bbcheck-cancel').addEventListener('click', () => modal.remove());
+      modal.querySelector('#bbcheck-go').addEventListener('click', () => {
+        const input = modal.querySelector('#bbcheck-input').value.trim();
+        const sub = norm(input);
+        if (!sub) {
+          alert('❌ Could not extract a valid subreddit name.');
+          return;
+        }
+        modal.remove();
+        location.href = `https://www.reddit.com/r/${sub}/about`;
+      });
+      modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+    }
+
+    function setStatus(text) { if (state.ui) state.ui.status.textContent = text; }
+    function setRunningVisual(running) {
+      if (!state.ui) return;
+      state.ui.state.textContent = running ? 'RUNNING' : 'STOPPED';
+      state.ui.indicator.style.background = running ? '#55ff88' : '#ff6666';
+    }
+
+    function render() {
+      if (!state.ui) return;
+      state.ui.safeCount.textContent = safeSubs.size;
+      state.ui.ignoreCount.textContent = ignoredSubs.size;
+      state.ui.unknownCount.textContent = state.pendingUnknown.length;
+      state.ui.bbCheckedCount.textContent = state.bbCheckedSubs.length;
+      state.ui.modeToggleBtn.textContent = `Filter: ${state.filteringMode ? 'ON' : 'OFF'}`;
+
+      if (state.mode === 'safe') {
+        renderList('Safe Subs', [...safeSubs].sort());
+      } else if (state.mode === 'ignored') {
+        renderList('Ignored Subs', [...ignoredSubs].sort());
+      } else {
+        renderOverview();
+      }
+    }
+
+    function renderOverview() {
+      if (!state.ui) return;
+
+      const lastTask = state.lastDetectedTask
+        ? `<div><b>Last task:</b> r/${esc(state.lastDetectedTask.subreddit)}<br><small>${esc(state.lastDetectedTask.link)}</small></div>`
+        : '<div>No task selected yet.</div>';
+
+      state.ui.summary.innerHTML = `
+        <div><b>Overview</b></div>
+        <div><b>Tasks visible:</b> ${state.lastKnownCount || '?'}</div>
+        ${lastTask}
+      `;
+
+      let html = '';
+      html += '<div style="margin-bottom:12px;"><b>📌 Unknown Tasks:</b></div>';
+      if (state.pendingUnknown.length) {
+        state.pendingUnknown.forEach((task, idx) => {
+          html += `
+            <div class="task-card">
+              <div><b>${idx+1}. r/${esc(task.subreddit)}</b></div>
+              <div><small>${esc(task.link)}</small></div>
+              <div class="task-actions">
+                <button data-unk-act="claim" data-link="${esc(task.link)}">Claim</button>
+                <button data-unk-act="claim-safe" data-link="${esc(task.link)}">Claim+Safe</button>
+                <button data-unk-act="ignore" data-link="${esc(task.link)}" data-sub="${esc(task.subreddit)}">Add Ignored</button>
+              </div>
+            </div>
+          `;
+        });
+      } else {
+        html += '<div>None</div>';
+      }
+
+      html += '<div style="margin-top:12px;margin-bottom:8px;"><b>📦 Last BB‑Checked Subs:</b></div>';
+      if (state.bbCheckedSubs.length) {
+        const recent = state.bbCheckedSubs.slice(-CFG.bbHistory).reverse();
+        recent.forEach(entry => {
+          html += `
+            <div class="task-card">
+              <div><b>r/${esc(entry.sub)}</b> – ${esc(entry.result)}</div>
+              <div class="task-actions">
+                <button data-bb-act="safe" data-sub="${esc(entry.sub)}">Add Safe</button>
+                <button data-bb-act="ignore" data-sub="${esc(entry.sub)}">Add Ignored</button>
+              </div>
+            </div>
+          `;
+        });
+      } else {
+        html += '<div>None yet</div>';
+      }
+
+      state.ui.content.innerHTML = html;
+
+      state.ui.content.querySelectorAll('button[data-bb-act]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const sub = btn.dataset.sub;
+          if (btn.dataset.bbAct === 'safe') addSafe(sub);
+          else addIgnored(sub);
+        });
+      });
+
+      state.ui.content.querySelectorAll('button[data-unk-act]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          handleUnknown(btn.dataset.unkAct, btn.dataset.link, btn.dataset.sub);
+        });
+      });
+    }
+
+    function renderList(title, items) {
+      state.ui.summary.innerHTML = `<div><b>Mode:</b> ${title}</div><div><b>Total:</b> ${items.length}</div>`;
+      state.ui.content.innerHTML = items.length
+        ? items.map(s => `<div class="list-item">${esc(s)}</div>`).join('')
+        : '<div>No items.</div>';
+    }
+
+    function handleUnknown(action, link, sub) {
+      const task = state.pendingUnknown.find(t => t.link === link);
+      if (!task) return;
+
+      if (action === 'claim') {
+        clickClaim(task);
+      } else if (action === 'claim-safe') {
+        addSafe(sub);
+        clickClaim(task);
+      } else if (action === 'ignore') {
+        addIgnored(sub);
+        state.pendingUnknown = state.pendingUnknown.filter(t => t.link !== link);
+        render();
+      }
+    }
+
+    function showClaimNotif(link) {
+      const notif = document.createElement('div');
+      notif.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:99999;background:#0b0f14;color:#d7ffd7;border:2px solid #2f4f2f;border-radius:14px;padding:20px;text-align:center;font:14px system-ui;box-shadow:0 8px 24px rgba(0,0,0,.5);';
+      notif.innerHTML = `
+        <div style="font-size:18px;font-weight:700;margin-bottom:8px;">🎉 Task Claimed!</div>
+        <div>Congratulations, task successfully claimed.</div>
+        <div style="margin:10px 0;"><a href="https://taskflux.net/tasks" target="_blank" style="color:#55ff88;">Visit your tasks</a></div>
+        <button id="bb-close-notif" style="background:#2f4f2f;border:none;color:white;padding:8px 16px;border-radius:6px;cursor:pointer;">Close</button>
+      `;
+      document.body.appendChild(notif);
+      document.getElementById('bb-close-notif').addEventListener('click', () => notif.remove());
+      setTimeout(() => notif.remove(), 15000);
+    }
+
+    function extractTasks() {
+      const btns = [...document.querySelectorAll('button')].filter(b =>
+        /claim|accept|take task/i.test(b.innerText || '')
+      );
+      const tasks = [];
+      const seen = new Set();
+
+      for (const btn of btns) {
+        let card = btn.closest('div, li, article, section, form, [role="listitem"]');
+        while (card && card !== document.body) {
+          if (/reddit\.com\/r\//i.test(card.innerText || '')) break;
+          card = card.parentElement?.closest('div, li, article, section, form, [role="listitem"]') || null;
+        }
+        if (!card || card === document.body) continue;
+
+        const txt = card.innerText || '';
+        const linkMatch = txt.match(/https?:\/\/(?:www\.)?reddit\.com\/r\/[^\s)]+/i);
+        if (!linkMatch) continue;
+        const link = linkMatch[0].trim();
+        const subMatch = link.match(/reddit\.com\/r\/([a-z0-9_]+)/i);
+        if (!subMatch) continue;
+        const sub = subMatch[1].toLowerCase();
+
+        if (!seen.has(link)) {
+          seen.add(link);
+          tasks.push({ subreddit: sub, link, buttonElement: btn });
+        }
+      }
+      return tasks;
+    }
+
+    function clickClaim(task) {
+      try {
+        task.buttonElement.scrollIntoView({ block: 'center', behavior: 'instant' });
+      } catch(e) {}
+      task.buttonElement.click();
+    }
+
+    function setStopped(val) {
+      saveFlag(S.stopped, val);
+      if (val) {
+        state.running = false;
+        state.filteringMode = false;
+        saveFlag(S.filteringMode, false);
+        if (state.currentTimer) clearTimeout(state.currentTimer);
+      }
+      setRunningVisual(!val);
+    }
+
+    function startBot() {
+      saveFlag(S.stopped, false);
+      state.running = true;
+      state.filteringMode = false;
+      saveFlag(S.filteringMode, false);
+      setRunningVisual(true);
+      setStatus('Running');
+      render();
+      if (state.currentTimer) clearTimeout(state.currentTimer);
+      state.currentTimer = setTimeout(runCycle, CFG.initDelay);
+    }
+
+    function stopBot() {
+      setStopped(true);
+      setStatus('Stopped');
+      render();
+    }
+
+    function runCycle() {
+      if (isStopped() && !state.filteringMode) {
+        setStatus('Stopped');
+        return;
+      }
+      setStatus('Scanning tasks...');
+      waitForTasks(tasks => {
+        state.lastKnownCount = tasks.length;
+        const safeTasks = tasks.filter(t => safeSubs.has(t.subreddit));
+        const unknownTasks = tasks.filter(t => !safeSubs.has(t.subreddit) && !ignoredSubs.has(t.subreddit));
+        state.pendingUnknown = unknownTasks;
+        render();
+
+        if (safeTasks.length > 0) {
+          const task = safeTasks[0];
+          clickClaim(task);
+          setStopped(true);
+          showClaimNotif(task.link);
+          return;
+        }
+
+        if ((state.filteringMode || state.running) && unknownTasks.length > 0) {
+          if (state.bbQueue.length === 0 && !state.bbInProgress) {
+            state.bbQueue = [...new Set(unknownTasks.map(t => t.subreddit))];
+            saveJSON(S.bbQueue, state.bbQueue);
+          }
+          if (state.bbQueue.length > 0 && !state.bbInProgress) {
+            processBBQueue();
+            return;
+          }
+        }
+
+        if (state.running || state.filteringMode) {
+          scheduleReload();
+        }
+      });
+    }
+
+    function waitForTasks(callback, retries = 0) {
+      const tasks = extractTasks();
+      if (tasks.length > 0) return callback(tasks);
+      if (retries >= CFG.maxRetries) {
+        location.reload();
+        return;
+      }
+      setTimeout(() => waitForTasks(callback, retries + 1), CFG.retryInterval);
+    }
+
+    function processBBQueue() {
+      if (state.bbQueue.length === 0) return;
+      const sub = state.bbQueue[0];
+      state.bbInProgress = true;
+      saveFlag(S.bbInProgress, true);
+
+      GM_setValue(QUEUE, JSON.stringify(state.bbQueue));
+      GM_setValue(AUTO, '1');
+
+      setStatus(`Checking r/${sub}… (leaving dashboard)`);
+      location.href = `https://www.reddit.com/r/${sub}/about`;
+    }
+
+    function scheduleReload() {
+      if (state.currentTimer) clearTimeout(state.currentTimer);
+      state.currentTimer = setTimeout(() => location.reload(), CFG.reloadDelay);
+    }
+
+    function handleAction(act) {
+      switch (act) {
+        case 'start':
+          startBot();
+          break;
+        case 'stop':
+          stopBot();
+          break;
+        case 'toggle-filter':
+          state.filteringMode = !state.filteringMode;
+          saveFlag(S.filteringMode, state.filteringMode);
+          if (state.filteringMode) {
+            setStopped(false);
+            state.running = true;
+            setRunningVisual(true);
+            setStatus('Filtering mode ON');
+          } else {
+            state.running = false;
+            setRunningVisual(false);
+            setStatus('Filtering mode OFF');
+          }
+          state.mode = 'overview';
+          render();
+          if (state.filteringMode) {
+            if (state.currentTimer) clearTimeout(state.currentTimer);
+            state.currentTimer = setTimeout(runCycle, 500);
+          }
+          break;
+        case 'add-subs':
+        case 'remove-subs':
+          showSubPanel(act === 'add-subs' ? 'add' : 'remove');
+          break;
+        case 'bulk-import':
+          showBulkImport();
+          break;
+        case 'view-safe':
+          state.mode = 'safe';
+          render();
+          break;
+        case 'view-ignore':
+          state.mode = 'ignored';
+          render();
+          break;
+        case 'clear-view':
+          state.mode = 'overview';
+          render();
+          break;
+        case 'hide':
+          state.ui.root.style.display = 'none';
+          break;
+      }
+    }
+
+    function showSubPanel(type) {
+      const panel = state.ui.subActionPanel;
+      panel.style.display = 'block';
+      state.ui.subActionInner.innerHTML = '';
+
+      const actions = type === 'add'
+        ? ['Add to Safe', 'Add to Ignored']
+        : ['Remove from Safe', 'Remove from Ignored'];
+      actions.forEach(label => {
+        const btn = document.createElement('button');
+        btn.textContent = label;
+        btn.style.marginRight = '4px';
+        btn.addEventListener('click', () => {
+          if (label.includes('Safe') || label.includes('Ignored')) {
+            showSubInput(type, label.includes('Safe') ? 'safe' : 'ignored');
+          }
+        });
+        state.ui.subActionInner.appendChild(btn);
+      });
+      const cancel = document.createElement('button');
+      cancel.textContent = 'Cancel';
+      cancel.addEventListener('click', () => { panel.style.display = 'none'; });
+      state.ui.subActionInner.appendChild(cancel);
+    }
+
+    function showSubInput(type, list) {
+      state.ui.subActionInner.innerHTML = `
+        <input id="sub-input-field" type="text" placeholder="Sub name">
+        <button id="sub-confirm">Confirm</button>
+        <button id="sub-cancel">Cancel</button>
+      `;
+      document.getElementById('sub-confirm').addEventListener('click', () => {
+        const sub = document.getElementById('sub-input-field').value.trim();
+        if (!sub) return;
+        if (type === 'add') {
+          if (list === 'safe') addSafe(sub);
+          else addIgnored(sub);
+        } else {
+          if (list === 'safe') {
+            if (safeSubs.has(sub)) {
+              safeSubs.delete(sub);
+              persist();
+              render();
+            } else alert('Sub not in safe list.');
+          } else {
+            if (ignoredSubs.has(sub)) {
+              ignoredSubs.delete(sub);
+              persist();
+              render();
+            } else alert('Sub not in ignored list.');
+          }
+        }
+        state.ui.subActionPanel.style.display = 'none';
+      });
+      document.getElementById('sub-cancel').addEventListener('click', () => {
+        state.ui.subActionPanel.style.display = 'none';
+      });
+    }
+
+    function showBulkImport() {
+      const panel = state.ui.subActionPanel;
+      panel.style.display = 'block';
+      state.ui.subActionInner.innerHTML = `
+        <div style="margin-bottom:6px;font-weight:700">Bulk Import</div>
+        <textarea id="bulk-import-text" placeholder="Paste subreddits separated by commas or new lines" style="height:80px;"></textarea>
+        <div style="margin-top:6px;display:flex;gap:6px">
+          <button id="bulk-import-safe" style="flex:1">Add to Safe</button>
+          <button id="bulk-import-ignore" style="flex:1">Add to Ignored</button>
+          <button id="bulk-cancel" style="background:#444">Cancel</button>
+        </div>
+      `;
+
+      document.getElementById('bulk-import-safe').addEventListener('click', () => {
+        const raw = document.getElementById('bulk-import-text').value;
+        const subs = raw.split(/[,\n]+/).map(s => norm(s)).filter(Boolean);
+        subs.forEach(sub => addSafe(sub));
+        panel.style.display = 'none';
+      });
+
+      document.getElementById('bulk-import-ignore').addEventListener('click', () => {
+        const raw = document.getElementById('bulk-import-text').value;
+        const subs = raw.split(/[,\n]+/).map(s => norm(s)).filter(Boolean);
+        subs.forEach(sub => addIgnored(sub));
+        panel.style.display = 'none';
+      });
+
+      document.getElementById('bulk-cancel').addEventListener('click', () => {
+        panel.style.display = 'none';
+      });
+    }
+
+    function initRedditAbout() {
+      if (!/^https:\/\/www\.reddit\.com\/r\/[a-z0-9_]+\/about/i.test(location.href)) return;
+      const sub = location.pathname.split('/')[2];
+      const isAuto = (GM_getValue(AUTO, null) === '1');
+
+      const check = setInterval(() => {
+        const bodyText = document.body.innerText.toLowerCase();
+        if (bodyText.includes('installed apps') || bodyText.includes('moderators')) {
+          clearInterval(check);
+          const hasBB = bodyText.includes('bot bouncer');
+
+          if (isAuto) {
+            if (hasBB) {
+              addIgnored(sub);
+            } else {
+              addSafe(sub);
+            }
+
+            if (!state.bbCheckedSubs.find(t => t.sub === sub)) {
+              state.bbCheckedSubs.push({
+                sub,
+                result: hasBB ? 'BotBouncer' : 'No BotBouncer'
+              });
+              saveJSON(S.bbCheckedSubs, state.bbCheckedSubs);
+            }
+
+            const rawQueue = GM_getValue(QUEUE, null);
+            if (rawQueue) {
+              try {
+                const arr = JSON.parse(rawQueue);
+                if (Array.isArray(arr) && arr.length > 0) arr.shift();
+                GM_setValue(QUEUE, JSON.stringify(arr));
+              } catch(e) {}
+            }
+
+            GM_setValue(AUTO, '');
+            setTimeout(() => {
+              location.href = 'https://taskflux.net/dashboard';
+            }, 1000);
+          } else {
+            const resultText = hasBB
+              ? '✅ Bot Bouncer DETECTED → add to IGNORED'
+              : '⚠️ No Bot Bouncer → add to SAFE';
+            const div = document.createElement('div');
+            div.style.cssText = 'position:fixed;top:20px;left:20px;z-index:99999;background:#0b0f14;color:#d7ffd7;border:2px solid #2f4f2f;border-radius:14px;padding:18px;max-width:90vw;font:14px system-ui;box-shadow:0 8px 24px rgba(0,0,0,.5);';
+            div.innerHTML = `
+              <div style="font-weight:700;font-size:16px;margin-bottom:10px;">🔍 r/${sub}</div>
+              <div style="white-space:pre-wrap;font-family:monospace;">${resultText}</div>
+              <button id="bb-manual-back" style="margin-top:10px;background:#2f4f2f;border:none;color:white;padding:6px 14px;border-radius:6px;cursor:pointer;">Go Back</button>
+            `;
+            document.body.appendChild(div);
+            document.getElementById('bb-manual-back').addEventListener('click', () => {
+              history.back();
+              setTimeout(() => { if (div.parentNode) div.remove(); }, 500);
+            });
+          }
+        }
+      }, 300);
+      setTimeout(() => clearInterval(check), 15000);
+    }
+
+    function init() {
+      if (location.hostname === 'www.reddit.com' && /^\/r\/[a-z0-9_]+\/about/i.test(location.pathname)) {
+        initRedditAbout();
+        return;
+      }
+
+      createUI();
+      createBBButton();
+
+      const savedQueue = GM_getValue(QUEUE, null);
+      if (savedQueue) {
+        try {
+          const arr = JSON.parse(savedQueue);
+          if (Array.isArray(arr) && arr.length > 0) {
+            state.bbQueue = arr;
+            saveJSON(S.bbQueue, state.bbQueue);
+          }
+        } catch(e) {}
+        GM_setValue(QUEUE, '');
+      }
+
+      if (GM_getValue(AUTO, null) === '1') {
+        GM_setValue(AUTO, '');
+      }
+
+      const stopped = isStopped();
+      setRunningVisual(!stopped);
+      state.running = !stopped && !state.filteringMode;
+      if (state.filteringMode) {
+        setRunningVisual(true);
+        state.running = true;
+        setStatus('Filtering mode ON');
+      } else {
+        setStatus(stopped ? 'Stopped' : 'Ready');
+      }
+      render();
+
+      if (state.running || state.filteringMode) {
+        if (state.currentTimer) clearTimeout(state.currentTimer);
+        state.currentTimer = setTimeout(runCycle, 1000);
+      }
+    }
+
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      init();
+    } else {
+      window.addEventListener('DOMContentLoaded', init);
+    }
+  })();
+})();
