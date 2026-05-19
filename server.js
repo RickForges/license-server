@@ -119,3 +119,16 @@ process.on('uncaughtException', (err) => {
   console.error('UNCAUGHT EXCEPTION:', err);
   process.exit(1);
 });
+// Create a standalone license key (for testing / manual use)
+app.get('/create-license', (req, res) => {
+  try {
+    const db = readJSON(DB_PATH);
+    const licenseKey = 'TF-' + crypto.randomUUID().slice(0, 12).toUpperCase();
+    db[licenseKey] = { revoked: false, created: Date.now() };
+    writeJSON(DB_PATH, db);
+    res.json({ license: licenseKey });
+  } catch (err) {
+    console.error('Error creating license:', err);
+    res.status(500).send('Server error.');
+  }
+});
