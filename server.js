@@ -25,7 +25,7 @@ function hash(fp) {
   return crypto.createHash('sha256').update(fp).digest('hex');
 }
 
-// --- License endpoints ---
+// License activation
 app.post('/activate', (req, res) => {
   const { license, fingerprint } = req.body;
   if (!license || !fingerprint) return res.json({ status: 'invalid' });
@@ -44,6 +44,7 @@ app.post('/activate', (req, res) => {
   res.json({ status: 'ok', token });
 });
 
+// License validation
 app.post('/validate', (req, res) => {
   const { license, token } = req.body;
   if (!license || !token) return res.json({ status: 'invalid' });
@@ -54,7 +55,7 @@ app.post('/validate', (req, res) => {
   res.json({ status: 'valid' });
 });
 
-// --- Purchase code management ---
+// Generate one-time purchase code
 app.get('/new-code', (req, res) => {
   const purchases = readJSON(PURCHASE_DB);
   const code = 'PU-' + crypto.randomBytes(8).toString('hex').toUpperCase();
@@ -63,7 +64,7 @@ app.get('/new-code', (req, res) => {
   res.json({ code, link: `${req.protocol}://${req.get('host')}/buy?code=${code}` });
 });
 
-// --- Buy endpoint: serves script with embedded license ---
+// Buy endpoint – serves the customized script
 app.get('/buy', (req, res) => {
   const { code } = req.query;
   if (!code) {
@@ -88,8 +89,15 @@ app.get('/buy', (req, res) => {
 
   try {
     let template = fs.readFileSync(SCRIPT_PATH, 'utf8');
+
+    // Inject license key
     template = template.replace('%%LICENSE%%', licenseKey);
 
+    // Inject the real server URL (the one the buyer is accessing)
+    const serverUrl = `${req.protocol}://${req.get('host')}`;
+    template = template.replace('%%SERVER_URL%%', serverUrl);
+
+    // Compute integrity hash of the license module
     const markerStart = '// INTEGRITY_START';
     const markerEnd = '// INTEGRITY_END';
     const startIdx = template.indexOf(markerStart);
@@ -108,4 +116,4 @@ app.get('/buy', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`License server running on port ${PORT}`));
+app.listen(PORT, '0.0.0.0', () => console.log(`License server running on port ${PORT}`));
