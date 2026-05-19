@@ -14,7 +14,7 @@
   'use strict';
 
   // INTEGRITY_START
-  const SERVER_URL = 'https://voting-swimming-urethane.ngrok-free.dev';
+  const SERVER_URL = 'https://license-server-9ukzdg.fly.dev/';
   const EMBEDDED_LICENSE = "%%LICENSE%%";
   const EXPECTED_HASH = "%%INTEGRITY%%";
 
